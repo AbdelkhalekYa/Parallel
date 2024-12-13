@@ -37,7 +37,7 @@ class SearchThread(QThread):
                     occurrences = line.lower().count(self.keyword.lower())  # Count keyword occurrences in the line
                     if occurrences > 0:
                         match_count += occurrences
-                        matches.extend([line.strip()] * occurrences)  # Store each match found in a line
+                        matches.extend([line.strip()])  # Store each match found in a line
                 
             # Calculate processing time
             processing_time = time.time() - start_time
@@ -266,9 +266,9 @@ class FileSearchApp(QMainWindow):
         ]
         
         # Add matches to the text
-        #if result['matches']:
-            #overall_result_text.append("\nMatches:")
-            #overall_result_text.append("\n".join(result['matches']))  # Add the matches here only once
+        if result['matches']:
+            overall_result_text.append("\nMatches:")
+            overall_result_text.append("\n".join(result['matches']))  # Add the matches here only once
 
         overall_result_text.append("-" * 50)  # Separator line
 
