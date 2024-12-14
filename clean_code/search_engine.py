@@ -14,24 +14,33 @@ class ThreadSafeSearchEngine:
 
     def search_file(self, filepath: str, keyword: str) -> Tuple[Optional[List[str]], float]:
         """
-        Search for keyword in a single file.
+        Search for all occurrences of a keyword in a file.
         
         :param filepath: Path to the file to search
         :param keyword: Keyword to search for
-        :return: Tuple of (matching lines or None, processing time)
+        :return: Tuple of (matching occurrences or None, processing time)
         """
         start_time = time.time()
+        keyword_lower = keyword.lower()
         try:
+            matches = []
             with open(filepath, 'r', encoding='utf-8') as file:
-                matches = [line.strip() for line in file if keyword.lower() in line.lower()]
-                end_time = time.time()
-                processing_time = end_time - start_time
-                return (matches if matches else None, processing_time)
+                for line_num, line in enumerate(file, start=1):
+                    line_lower = line.lower()
+                    start_idx = 0
+                    while (match_idx := line_lower.find(keyword_lower, start_idx)) != -1:
+                        # Record the occurrence with line number and position
+                        matches.append(f"Line {line_num}: {line.strip()} (Position: {match_idx})")
+                        start_idx = match_idx + len(keyword_lower)  # Move past the current match
+            end_time = time.time()
+            processing_time = end_time - start_time
+            return (matches if matches else None, processing_time)
         except (IOError, PermissionError) as e:
             end_time = time.time()
             processing_time = end_time - start_time
             print(f"Error reading file {filepath}: {e}")
             return (None, processing_time)
+
 
     def perform_search(self, filepath: str, keyword: str) -> Tuple[List[str], float]:
         """
