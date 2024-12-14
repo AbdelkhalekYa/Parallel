@@ -92,6 +92,7 @@ class FileSearchApp(QMainWindow):
         self.results_table.setHorizontalHeaderLabels([
             'Window', 'File Path', 'Matches', 'Processing Time (s)'
         ])
+        self.results_table.setEditTriggers(QTableWidget.NoEditTriggers)
         main_layout.addWidget(self.results_table)
 
     def add_overall_results_display(self, main_layout):
