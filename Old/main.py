@@ -270,7 +270,7 @@ class FileSearchApp(QMainWindow):
             overall_result_text.append("\nMatches:")
             overall_result_text.append("\n".join(result['matches']))  # Add the matches here only once
 
-        overall_result_text.append("-" * 50)  # Separator line
+        overall_result_text.append("-" * 50+ "\n") # Separator line
 
         # Update the overall results display
         current_text = self.overall_results.toPlainText()
