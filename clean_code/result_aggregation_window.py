@@ -5,9 +5,9 @@ from PyQt5.QtWidgets import (
 )
 
 class ResultAggregationWindow(QMainWindow):
-    """
-    Window to aggregate and display search results from all threads
-    """
+    
+    # Window to aggregate and display search results from all threads
+    
     def __init__(self, total_windows: int):
         super().__init__()
         self.total_windows = total_windows
@@ -18,9 +18,9 @@ class ResultAggregationWindow(QMainWindow):
         self.initUI()
 
     def initUI(self):
-        """
-        Initialize the Results Aggregation User Interface
-        """
+        
+        # Initialize the Results Aggregation User Interface
+        
         self.setWindowTitle('Search Results Aggregation')
         self.setGeometry(200, 200, 800, 600)
 
@@ -46,11 +46,9 @@ class ResultAggregationWindow(QMainWindow):
         main_layout.addWidget(self.overall_results_display)
 
     def add_search_result(self, result_dict: dict):
-        """
-        Add search result from a thread
         
-        :param result_dict: Dictionary containing search results
-        """
+        # Add search result from a thread
+                
         self.all_results.append(result_dict)
         self.completed_searches += 1
 
@@ -59,9 +57,9 @@ class ResultAggregationWindow(QMainWindow):
             self.show_aggregated_results()
 
     def show_aggregated_results(self):
-        """
-        Display aggregated search results
-        """
+        
+        # Display aggregated search results
+        
         # Clear previous results
         self.results_table.setRowCount(0)
 

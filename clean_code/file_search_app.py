@@ -12,9 +12,9 @@ from result_aggregation_window import ResultAggregationWindow
 
 class FileSearchApp(QMainWindow):
     def __init__(self):
-        """
-        Initialize the File Search Application
-        """
+        
+        # Initialize the File Search Application
+
         super().__init__()
         
         # Core application state
@@ -25,9 +25,9 @@ class FileSearchApp(QMainWindow):
         self.setup_ui()
 
     def setup_ui(self):
-        """
-        Comprehensive UI setup method
-        """
+        
+        # Comprehensive UI setup method
+        
         # Window configuration
         self.setWindowTitle('Parallel File Search Tool')
         self.setGeometry(100, 100, 1000, 700)
@@ -45,9 +45,8 @@ class FileSearchApp(QMainWindow):
         self.add_overall_results_display(main_layout)
 
     def add_window_configuration_section(self, main_layout):
-        """
-        Add section for configuring number of search windows
-        """
+        # Add section for configuring number of search windows
+
         windows_layout = QHBoxLayout()
         windows_layout.addWidget(QLabel('Number of Search Windows:'))
         
@@ -62,9 +61,9 @@ class FileSearchApp(QMainWindow):
         main_layout.addLayout(windows_layout)
 
     def add_keyword_search_section(self, main_layout):
-        """
-        Add section for entering search keyword
-        """
+        
+        # Add section for entering search keyword
+        
         keyword_layout = QHBoxLayout()
         
         self.keyword_input = QLineEdit()
@@ -78,16 +77,16 @@ class FileSearchApp(QMainWindow):
         main_layout.addLayout(keyword_layout)
 
     def add_search_windows_placeholder(self, main_layout):
-        """
-        Create placeholder for dynamic search windows
-        """
+        
+        # Create placeholder for dynamic search windows
+        
         self.search_windows_layout = QHBoxLayout()
         main_layout.addLayout(self.search_windows_layout)
 
     def add_results_table(self, main_layout):
-        """
-        Add table for displaying detailed search results
-        """
+        
+        # Add table for displaying detailed search results
+        
         self.results_table = QTableWidget()
         self.results_table.setColumnCount(4)
         self.results_table.setHorizontalHeaderLabels([
@@ -96,17 +95,17 @@ class FileSearchApp(QMainWindow):
         main_layout.addWidget(self.results_table)
 
     def add_overall_results_display(self, main_layout):
-        """
-        Add text area for displaying overall search results
-        """
+        
+        # Add text area for displaying overall search results
+        
         self.overall_results = QTextEdit()
         self.overall_results.setReadOnly(True)
         main_layout.addWidget(self.overall_results)
 
     def create_search_windows(self):
-        """
-        Dynamically create file selection windows based on user input
-        """
+        
+        # Dynamically create file selection windows based on user input
+        
         # Clear existing windows
         while self.search_windows_layout.count():
             widget = self.search_windows_layout.takeAt(0).widget()
@@ -131,12 +130,11 @@ class FileSearchApp(QMainWindow):
             self.search_windows_layout.addWidget(window)
 
     def create_single_search_window(self, window_index: int) -> QWidget:
-        """
-        Create a single search window with file selection
         
-        :param window_index: Index of the current window
-        :return: Configured widget for file selection
-        """
+        # Create a single search window with file selection
+        
+
+        
         file_select_widget = QWidget()
         file_select_layout = QVBoxLayout(file_select_widget)
         
@@ -160,12 +158,11 @@ class FileSearchApp(QMainWindow):
         return file_select_widget
 
     def select_file(self, window_id: int, file_input: QLineEdit):
-        """
-        Open file dialog for selecting a file for a specific window
         
-        :param window_id: ID of the current window
-        :param file_input: Input field to display selected file path
-        """
+        # Open file dialog for selecting a file for a specific window
+        
+
+        
         file_path, _ = QFileDialog.getOpenFileName(
             self, 
             f'Select File for Window {window_id + 1}', 
@@ -184,9 +181,9 @@ class FileSearchApp(QMainWindow):
         self.file_paths[window_id] = file_path
 
     def start_parallel_search(self):
-        """
-        Initiate parallel search across multiple files
-        """
+        
+        # Initiate parallel search across multiple files
+        
         # Validate search parameters
         if not self.validate_search_parameters():
             return
@@ -204,11 +201,10 @@ class FileSearchApp(QMainWindow):
         results_aggregator.show()
 
     def validate_search_parameters(self) -> bool:
-        """
-        Validate search keyword and file paths
         
-        :return: True if valid, False otherwise
-        """
+        # Validate search keyword and file paths
+        
+        
         keyword = self.keyword_input.text().strip()
         if not keyword:
             QMessageBox.warning(self, 'Missing Keyword', 'Please enter a search keyword')
@@ -221,18 +217,17 @@ class FileSearchApp(QMainWindow):
         return True
 
     def reset_search_results(self):
-        """
-        Reset search results display
-        """
+        
+        # Reset search results display
+        
         self.results_table.setRowCount(0)
         self.overall_results.clear()
 
     def initialize_search_threads(self, results_aggregator):
-        """
-        Create and start search threads
         
-        :param results_aggregator: Window to aggregate results
-        """
+        # Create and start search threads
+        
+        
         self.search_threads.clear()
         keyword = self.keyword_input.text().strip()
 
@@ -245,11 +240,10 @@ class FileSearchApp(QMainWindow):
                 self.search_threads.append(thread)
 
     def process_search_result(self, result: dict):
-        """
-        Process and display individual search thread results
         
-        :param result: Dictionary containing search results
-        """
+        # Process and display individual search thread results
+        
+        
         row = self.results_table.rowCount()
         self.results_table.insertRow(row)
         
@@ -263,11 +257,10 @@ class FileSearchApp(QMainWindow):
         self.display_detailed_results(result)
 
     def display_detailed_results(self, result: dict):
-        """
-        Display detailed search results in overall results text area
         
-        :param result: Dictionary containing search results
-        """
+        # Display detailed search results in overall results text area
+        
+        
         result_text = [
             f"Window {result['window_id']} Results:",
             f"File: {result['filepath']}",

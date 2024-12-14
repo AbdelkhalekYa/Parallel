@@ -4,22 +4,20 @@ import threading
 from typing import List, Optional, Tuple
 
 class ThreadSafeSearchEngine:
-    """
-    Thread-safe search engine for efficient file searching
-    """
+    
+    # Thread-safe search engine for efficient file searching
+    
     def __init__(self):
         self.search_results: List[str] = []
         self.results_lock = threading.Lock()
         self.total_processing_time = 0.0
 
     def search_file(self, filepath: str, keyword: str) -> Tuple[Optional[List[str]], float]:
-        """
-        Search for all occurrences of a keyword in a file.
         
-        :param filepath: Path to the file to search
-        :param keyword: Keyword to search for
-        :return: Tuple of (matching occurrences or None, processing time)
-        """
+        # Search for all occurrences of a keyword in a file.
+        
+
+        
         start_time = time.time()
         keyword_lower = keyword.lower()
         try:
@@ -43,13 +41,11 @@ class ThreadSafeSearchEngine:
 
 
     def perform_search(self, filepath: str, keyword: str) -> Tuple[List[str], float]:
-        """
-        Perform search on a single file and store results
         
-        :param filepath: Path to the file
-        :param keyword: Keyword to search for
-        :return: Tuple of (search results, processing time)
-        """
+        # Perform search on a single file and store results
+        
+
+        
         try:
             results, processing_time = self.search_file(filepath, keyword)
             
